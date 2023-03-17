@@ -11,10 +11,11 @@ class Trader:
         """
         # Initialize the method output dict as an empty dict
         result = {}
-        print("++++++++++")
-        print(state.position)
 
-        print("============----------------==============")
+        print("TIME")
+        print("LISTINGS")
+        print(state.listings)
+        print("ORDER DEPTHS")
         for product in state.order_depths.keys():
             print(".............................")
             print(product)
@@ -23,6 +24,13 @@ class Trader:
             print("BUY  ORDERS: " +
                   str(state.order_depths[product].buy_orders))
             print(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
-        print("------------==================--------------")
+        print("OWN TRADES")
+        print(state.own_trades)
+        print("MARKET TRADES")
+        print(state.market_trades)
+        print("POSITIONS")
+        print(state.position)
+        print("OBSERVATIONS")
+        print(state.observations)
         print("############")
         return result
