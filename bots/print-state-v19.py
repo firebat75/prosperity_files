@@ -11,6 +11,7 @@ class Trader:
         """
         # Initialize the method output dict as an empty dict
         result = {}
+        print("*************")
 
         print("TIME")
         print("LISTINGS")
