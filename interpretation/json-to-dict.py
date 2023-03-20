@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import json
 
-f = open("interpretation/state.json")
+f = open("state.json")
 
 data = json.load(f)
 
@@ -15,8 +15,8 @@ for key in data:
     per_prices.append(int(price))
 
 
-xpoints = np.array(iterations[:16])
-ypoints = np.array(per_prices[:16])
+xpoints = np.array(iterations[:100])
+ypoints = np.array(per_prices[:100])
 
 plt.plot(xpoints, ypoints)
 plt.show()
