@@ -28,46 +28,24 @@ val = 2000.0
 start = "Shell"
 
 
-def bfs(market, val, curr_trades=[], all_trades={}, curr="Shell"):
-
-    if len(curr_trades) == 5:
+def bfs(market, val, curr_item, curr_path=[], all_trades={}):
+    # if len(curr_path) == 5 and curr_path[-1] == "Shell":
+    print(all_trades)
+    if curr_path[-1] == "Shell":
         if val in all_trades.keys():
-            all_trades[val].append(curr_trades)
+            all_trades[val].append(curr_path)
         else:
-            all_trades[val] = [curr_trades]
+            all_trades[val] = [curr_path]
+
         return all_trades
 
-    if len(curr_trades) == 4 and curr != "Shell":
+    else:
+        for item in market[curr_item].keys():
+            rate = market[curr_item][item]
+            temp_val = val * rate
+            temp_path = curr_path + item
 
-        temp_val = val * market[curr]["Shell"]
-
-        return bfs(market, val, temp_trades, all_trades, "Shell")
-
-    elif len(curr_trades) == 4 and curr == "Shell":
-        return all_trades
-
-    for rate in market[curr].keys():
-
-        item = market[curr][rate]
-
-        temp_val = val * rate
-        temp_trades = curr_trades + [market[curr][rate]]
-
-        if temp_val in all_trades.keys():
-            all_trades[temp_val].append(temp_trades)
-        else:
-            all_trades[temp_val] = [temp_trades]
-
-        print(all_trades)
-
-        return bfs(market, val, temp_trades, all_trades, item)
-
-        # if len(temp_trades) == 5:
-        #     return all_trades
-        # elif len(temp_trades) == 4 and curr != "Shell":
-        #     bfs(exchange, val, temp_trades, all_trades, "Shell")
-        # else:
-        #     bfs(exchange, val, temp_trades, all_trades, item)
+            return bfs(market, temp_val, item, temp_path, all_trades)
 
 
 output = bfs(market, val)
