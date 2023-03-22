@@ -23,3 +23,5 @@ exchanges = {
         1.98: "Snowball"
     }
 }
+
+acc = 2000.0
