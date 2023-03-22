@@ -27,27 +27,57 @@ market = {
 val = 2000.0
 start = "Shell"
 
+all = {}
 
-def bfs(market, val, curr_item, curr_path=[], all_trades={}):
+
+def bfs(market, val, curr_item, curr_path=["Shell"], all_trades={}):
     # if len(curr_path) == 5 and curr_path[-1] == "Shell":
-    print(all_trades)
+
+    # if len(curr_path) > 0 and curr_path[-1] == "Shell":
+    #     if val in all_trades.keys():
+    #         all_trades[val].append(curr_path)
+    #     else:
+    #         all_trades[val] = [curr_path]
+
+    #     return all_trades
+
     if curr_path[-1] == "Shell":
-        if val in all_trades.keys():
-            all_trades[val].append(curr_path)
+        global all
+        if val in all.keys():
+            all[val].append(curr_path)
         else:
-            all_trades[val] = [curr_path]
+            all[val] = curr_path
 
-        return all_trades
+    if len(curr_path) > 5:
+        return None
 
-    else:
-        for item in market[curr_item].keys():
-            rate = market[curr_item][item]
-            temp_val = val * rate
-            temp_path = curr_path + item
+    for item in market[curr_item].keys():
+        rate = market[curr_item][item]
+        temp_val = val * rate
+        temp_path = curr_path + [item]
 
-            return bfs(market, temp_val, item, temp_path, all_trades)
+        bfs(market, temp_val, item, temp_path, all_trades)
 
 
-output = bfs(market, val)
+output = bfs(market, val, start)
 
+print(all)
+
+print(max(all.keys()))
+
+
+trades = []
+vals = []
+for item in all:
+    trades.append([round(item), all[item]])
+    vals.append(item)
+vals.sort()
+vals.reverse()
+for item in vals:
+    print(round(item), all[item])
+
+for item in all:
+    if all[item] == ["Shell", "Pizza Slice", "Wasabi Root", "Snowball", "Pizza Slice", "Shell"]:
+        print("dsdasfafghjseiofjwef3j0fj390hjfioehjwjofjwef")
+        print(item)
 # print(output)
